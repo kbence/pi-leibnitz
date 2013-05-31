@@ -1,4 +1,4 @@
-STATS = pi.js.stat pi.py.stat pi.c.stat pi.d.stat
+STATS = pi.js.stat pi.py.stat pi.c.stat pi.d.stat pi.rb.stat
 TIME = time -a --format "%Es"
 
 .PHONY: all
@@ -34,6 +34,14 @@ results.txt: $(STATS)
 	echo '\nD:' >$@
 	if which rdmd; then \
 		$(TIME) -o $@ rdmd $<; \
+	else \
+		echo "Skipped!" >> $@; \
+	fi
+
+%.rb.stat: %.rb
+	echo '\nRuby:' >$@
+	if which ruby; then \
+		$(TIME) -o $@ ruby $<; \
 	else \
 		echo "Skipped!" >> $@; \
 	fi
