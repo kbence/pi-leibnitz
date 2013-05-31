@@ -1,4 +1,4 @@
-STATS = pi.js.stat
+STATS = pi.js.stat pi.py.stat
 TIME = time -a --format %U
 
 .PHONY: all
@@ -16,4 +16,8 @@ results.txt: $(STATS)
 %.js.stat: %.js
 	echo '\nNode.JS:' >$@
 	$(TIME) -o $@ node $< >/dev/null
+
+%.py.stat: %.py
+	echo '\nPython:' >$@
+	$(TIME) -o $@ python $< >/dev/null
 
