@@ -1,4 +1,4 @@
-STATS = pi.js.stat pi.py.stat pi.c.stat
+STATS = pi.js.stat pi.py.stat pi.c.stat pi.d.stat
 TIME = time -a --format "%Es"
 
 .PHONY: all
@@ -15,7 +15,11 @@ results.txt: $(STATS)
 
 %.js.stat: %.js
 	echo '\nNode.JS:' >$@
-	$(TIME) -o $@ node $<
+	if which node; then \
+		$(TIME) -o $@ node $<; \
+	else \
+		echo "Skipped" >>$@; \
+	fi
 
 %.py.stat: %.py
 	echo '\nPython:' >$@
@@ -25,4 +29,12 @@ results.txt: $(STATS)
 	gcc -o $@.bin $<
 	echo '\nC:' >$@
 	$(TIME) -o $@ ./$@.bin
+
+%.d.stat: %.d
+	echo '\nD:' >$@
+	if which rdmd; then \
+		$(TIME) -o $@ rdmd $<; \
+	else \
+		echo "Skipped!" >> $@; \
+	fi
 
