@@ -3,9 +3,11 @@ import std.stdio;
 double pi()
 {
 	double sum = 0;
+	int i;
 	
-	foreach (i; 0 .. 100_000_000) {
+	while (i < 1e8) {
 		sum += 4.0 / (i * 2 + 1) * (i % 2 ? -1 : 1);
+		i++;
 	}
 
 	return sum;
