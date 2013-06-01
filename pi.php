@@ -11,5 +11,5 @@ function _pi()
 	return $sum;
 }
 
-echo _pi();
+echo sprintf("%.15f", _pi());
 
