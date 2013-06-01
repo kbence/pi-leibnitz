@@ -1,4 +1,4 @@
-STATS = pi.js.stat pi.py.stat pi.c.stat pi.d.stat pi.rb.stat
+STATS = pi.js.stat pi.py.stat pi.c.stat pi.d.stat pi.rb.stat pi.php.stat
 TIME = time -a --format "%Es"
 
 .PHONY: all
@@ -26,7 +26,7 @@ results.txt: $(STATS)
 	$(TIME) -o $@ python $<
 
 %.c.stat: %.c
-	gcc -o $@.bin $<
+	gcc -O3 -o $@.bin $<
 	echo '\nC:' >$@
 	$(TIME) -o $@ ./$@.bin
 
@@ -42,6 +42,14 @@ results.txt: $(STATS)
 	echo '\nRuby:' >$@
 	if which ruby; then \
 		$(TIME) -o $@ ruby $<; \
+	else \
+		echo "Skipped!" >> $@; \
+	fi
+
+%.php.stat: %.php
+	echo '\nPHP:' >$@
+	if which php; then \
+		$(TIME) -o $@ php $<; \
 	else \
 		echo "Skipped!" >> $@; \
 	fi
